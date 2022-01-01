@@ -1,22 +1,20 @@
-import express, { json, urlencoded } from 'express';
-import { config } from 'dotenv';
+const express = require('express')
+require('dotenv').config()
+const authenticationRoute = require('./src/routes/authentication.routes')
+const jwtRoute = require('./src/routes/jwt.routes')
+const methodRoute = require('./src/routes/method.routes')
 
-config();
-
-const app = express();
-const PORT = process.env.PORT;
+const app = express()
+const PORT = process.env.PORT
+const baseUrlWeb = '/api'
 
 app.listen(PORT).on('listening', () => {
-    console.log(`API server started on port: ${PORT}`);
+    console.log(`API server started on port: ${PORT}`)
 })
 
-app.use(json());
-app.use(urlencoded({extended: true}));
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
-const baseUrlWeb = '/api';
-
-import authenticationRoute from './routes/authentication.routes.js';
-import jwtRoute from './routes/jwt.routes.js';
-
-app.use(baseUrlWeb, authenticationRoute);
-app.use(baseUrlWeb, jwtRoute);
+app.use(baseUrlWeb, authenticationRoute)
+app.use(baseUrlWeb, jwtRoute)
+app.use(baseUrlWeb, methodRoute)
