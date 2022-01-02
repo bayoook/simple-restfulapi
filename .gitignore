@@ -128,3 +128,4 @@ dist
 
 # example
 example/
+.DS_Store
