@@ -99,7 +99,7 @@ class scheduleController{
                 return res.status(404).send(responseHelper.fail('error', `Data schedules with range (${newFrom} -> ${newTo}) not found / deleted`))
             }
 
-            res.status(200).send(responseHelper.success('Success', result[0]))
+            res.status(200).send(responseHelper.success('Success', result))
         } catch (error) {
             console.log(error)
             res.status(500).send(responseHelper.fail('error', 'Internal Server Error'))
