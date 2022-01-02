@@ -5,6 +5,7 @@ class responseHelper {
           data: data
         }
     }
+    
     fail(status, message) {
         return {
           status: status,

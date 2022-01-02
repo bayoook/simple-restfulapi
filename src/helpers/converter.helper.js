@@ -8,6 +8,10 @@ class converterHelper {
         }
         return output
     }
+    
+    epochToTimestamp(epoch) {
+        return new Date(epoch * 1000)
+    }
 }
 
 module.exports = new converterHelper()

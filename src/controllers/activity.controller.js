@@ -1,17 +1,17 @@
 const responseHelper = require('../helpers/response.helper')
-const methodModel = require('../models/method.model')
+const activityModel = require('../models/activity.model')
 const converter = require('../helpers/converter.helper')
 const checker = require('../helpers/checker.helper')
 
-class methodController{
+class activityController{
     async insert(req, res) {
         try {
-            const methodName = req.body.name
-            if (!methodName) {
+            const activityName = req.body.name
+            if (!activityName) {
                 return res.status(400).send(responseHelper.fail('error', 'Invalid name'))
             }
 
-            const result = await methodModel.insert(methodName)
+            const result = await activityModel.insert(activityName)
             if (result.length < 1) {
                 return res.status(404).send(responseHelper.fail('error', `Data already existed / deleted`))
             }
@@ -22,12 +22,12 @@ class methodController{
             res.status(500).send(responseHelper.fail('error', 'Internal Server Error'))
         }
     }
-    
+
     async getAll(_, res) {
         try {
-            const result = await methodModel.getAll()
+            const result = await activityModel.getAll()
             if (result.length < 1) {
-                return res.status(404).send(responseHelper.fail('error', `Data methods not found`))
+                return res.status(404).send(responseHelper.fail('error', `Data activities not found`))
             }
 
             res.status(200).send(responseHelper.success('Success', result))
@@ -39,14 +39,14 @@ class methodController{
 
     async getByID(req, res) {
         try {
-            const id = req.params.methodId
+            const id = req.params.activityId
             if (!checker.isInt(id)) {
                 return res.status(400).send(responseHelper.fail('error', 'Invalid parameter ID'))
             }
 
-            const result = await methodModel.getByID(id)
+            const result = await activityModel.getByID(id)
             if (result.length < 1) {
-                return res.status(404).send(responseHelper.fail('error', `Data methods with id ${id} not found / deleted`))
+                return res.status(404).send(responseHelper.fail('error', `Data activities with id ${id} not found / deleted`))
             }
 
             res.status(200).send(responseHelper.success('Success', result[0]))
@@ -58,14 +58,14 @@ class methodController{
 
     async softDelete(req, res) {
         try {
-            const id = req.params.methodId
+            const id = req.params.activityId
             if (!checker.isInt(id)) {
                 return res.status(400).send(responseHelper.fail('error', 'Invalid parameter ID'))
             }
 
-            const result = await methodModel.softDelete(id)
+            const result = await activityModel.softDelete(id)
             if (result.length < 1) {
-                return res.status(404).send(responseHelper.fail('error', `Data methods with id ${id} not found / deleted`))
+                return res.status(404).send(responseHelper.fail('error', `Data activities with id ${id} not found / deleted`))
             }
 
             res.status(200).send(responseHelper.success('Deleted', result[0]))
@@ -74,22 +74,22 @@ class methodController{
             res.status(500).send(responseHelper.fail('error', 'Internal Server Error'))
         }
     }
-
+    
     async update(req, res) {
         try {
-            const id = req.params.methodId
-            const methodName = req.body.name
+            const id = req.params.activityId
+            const activityName = req.body.name
             if (!checker.isInt(id)) {
                 return res.status(400).send(responseHelper.fail('error', 'Invalid parameter ID'))
             }
 
-            if (!methodName) {
+            if (!activityName) {
                 return res.status(400).send(responseHelper.fail('error', 'Invalid name'))
             }
 
-            const result = await methodModel.update(id, methodName)
+            const result = await activityModel.update(id, activityName)
             if (result.length < 1) {
-                return res.status(404).send(responseHelper.fail('error', `Data methods with id ${id} not found / deleted`))
+                return res.status(404).send(responseHelper.fail('error', `Data activities with id ${id} not found / deleted`))
             }
 
             res.status(200).send(responseHelper.success('Updated', result[0]))
@@ -101,4 +101,4 @@ class methodController{
     
 }
 
-module.exports = new methodController()
+module.exports = new activityController()

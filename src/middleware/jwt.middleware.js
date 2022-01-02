@@ -5,12 +5,12 @@ const TOKEN = process.env.TOKEN_SECRET
 
 class jwtMiddleware {
     generateToken(username) {
-        return jsonwebtoken.sign(username, TOKEN, {expiresIn: '7200s'})
+        return jsonwebtoken.sign(username, TOKEN, {})
     }
+
     authenticateToken(req, res, next) {
         const authHeader = req.headers['authorization']
         const token = authHeader && authHeader.split(' ')[1]
-        
         if (!token) return res.status(401).send("A token is required for authentication")
 
         try {
@@ -19,7 +19,6 @@ class jwtMiddleware {
         } catch (err) {
             return res.status(401).send("Invalid token")
         }
-
         return next()
     }
 }

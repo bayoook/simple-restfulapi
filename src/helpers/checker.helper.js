@@ -2,7 +2,7 @@ class checkerHelper {
     isInt(value) {
         return !isNaN(value) && 
             parseInt(Number(value)) == value && 
-            !isNaN(parseInt(value, 10));
+            !isNaN(parseInt(value, 10))
     }
 }
 
