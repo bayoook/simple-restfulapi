@@ -16,5 +16,9 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.15",
     "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-config-google": "^0.14.0"
   }
 }
